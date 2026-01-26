@@ -116,3 +116,87 @@ Model performance metrics (MAE, MAPE, RMSE)
 What-If Sliders: Temperature deviation, demand shock magnitude
 Impact Analysis: Peak load, price risk, system stress indicators
 Risk Heatmaps: Probability x impact matrices
+
+
+🚀 Getting Started
+Prerequisites
+bashPython 3.10+
+PostgreSQL 14+
+Power BI Desktop
+Installation
+
+Clone the repository
+
+bashgit clone https://github.com/yourusername/uk-energy-forecasting.git
+cd uk-energy-forecasting
+
+Set up Python environment
+
+bashpython -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+
+Configure database
+
+bashpsql -U postgres -f sql/schema.sql
+
+Run data pipeline
+
+bashpython src/data_pipeline.py
+python src/feature_engineering.py
+
+Train forecasting models
+
+bashpython src/forecasting/demand_models.py
+```
+
+6. **Open Power BI dashboard**
+```
+Open powerbi/UK_Energy_Dashboard.pbix in Power BI Desktop
+
+📚 Key Learnings & Skills Demonstrated
+Data Engineering
+
+Star schema design for time-series analytics
+ETL pipelines with data quality validation
+Handling missing values, outliers, and duplicates in energy data
+
+Forecasting & Statistics
+
+Time-series decomposition and stationarity testing
+Feature engineering for weather-sensitive demand
+Model selection and hyperparameter tuning
+Walk-forward validation for temporal data
+
+Business Analytics
+
+Translating technical forecasts into business insights
+Scenario analysis and risk quantification
+Executive dashboard design with storytelling
+
+Domain Knowledge
+
+UK electricity market structure
+Demand drivers (weather, calendar effects, economic activity)
+Price formation and volatility in wholesale markets
+
+
+📌 Project Status
+
+ Data collection and cleaning
+ Star schema implementation
+ Exploratory data analysis
+ Baseline forecasting models
+ Advanced ML model tuning (in progress)
+ Power BI dashboard development (in progress)
+ Documentation and portfolio presentation
+
+
+📧 Contact
+Ben | LinkedIn | Portfolio | Email
+This project was developed as part of my data analytics portfolio to demonstrate end-to-end capabilities in data warehousing, forecasting, and business intelligence.
+
+📄 License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+⭐ If you found this project useful, please consider giving it a star!
