@@ -1,129 +1,118 @@
-# UK-Energy-Demand-Price-Forecasting-System
-UK Energy Demand & Price Forecasting System
-Overview
+⚡ UK Energy Demand & Price Forecasting System
+An end-to-end analytics and forecasting system for the UK electricity market, combining SQL data warehousing, Python machine learning, and Power BI dashboards to support strategic planning and risk assessment.
 
-This project builds an end-to-end analytics and forecasting system for the UK electricity market, integrating historical demand, wholesale power prices, and weather data to support market analysis, capacity planning, and scenario-based decision making.
+📊 Project Overview
+This project replicates the analytical workflows used by energy market analysts, grid operators, and infrastructure investors to forecast electricity demand, predict wholesale price movements, and stress-test system capacity under various scenarios.
+By integrating historical demand data, wholesale power prices, and weather observations into a structured data warehouse, this system enables:
 
-The objective is to replicate how energy analysts, system planners, and infrastructure investors analyse power systems by:
+Short and medium-term demand forecasting with quantified uncertainty
+Price volatility analysis and demand-price sensitivity modelling
+Scenario planning for extreme weather events and demand surges
+Executive dashboards for strategic decision-making
 
-Structuring large time-series datasets in a relational data model
 
-Building forecasting models for electricity demand and price behaviour
+🎯 Key Business Questions
+QuestionAnalytical ApproachHow does UK electricity demand vary seasonally and respond to weather?Time-series decomposition, correlation analysis, feature engineeringCan we accurately forecast demand 7-30 days ahead?ARIMA, Prophet, XGBoost regression with weather and lag featuresHow volatile are wholesale prices, and what drives price spikes?Volatility decomposition, demand-price sensitivity analysisWhat scenarios pose the highest system stress and financial risk?Monte Carlo simulation, stress testing with what-if parameters
 
-Quantifying uncertainty, seasonality, and weather sensitivity
+🗂️ Data Sources
+SourceData TypePurposeNational Grid ESO / NESODaily electricity demand (MW)Historical demand patterns, seasonality analysisElexon BMRSWholesale electricity prices (£/MWh)Price volatility, demand-price relationshipsMet OfficeTemperature, rainfall, wind speedWeather feature engineering, demand driversUK Calendar DataPublic holidays, working daysCalendar effect adjustments
+All data is processed into a PostgreSQL star schema for scalable analytics and modelling.
 
-Creating an interactive executive dashboard for planning and risk assessment
+🏗️ Technical Architecture
+uk-energy-forecasting/
+│
+├── data/
+│   ├── raw/                    # Original source data
+│   ├── processed/              # Cleaned, feature-engineered tables
+│   └── data_dictionary.md      # Schema documentation
+│
+├── sql/
+│   ├── schema.sql              # Star schema definition
+│   ├── transformations/        # ETL and feature engineering
+│   └── views/                  # Analytical views
+│
+├── src/
+│   ├── data_pipeline.py        # Data ingestion and cleaning
+│   ├── feature_engineering.py  # Time-series features, weather integration
+│   ├── forecasting/
+│   │   ├── demand_models.py    # ARIMA, Prophet, XGBoost implementations
+│   │   └── price_models.py     # Price forecasting and volatility
+│   └── evaluation.py           # Model validation, accuracy metrics
+│
+├── notebooks/
+│   ├── 01_eda.ipynb           # Exploratory data analysis
+│   ├── 02_demand_modelling.ipynb
+│   └── 03_price_analysis.ipynb
+│
+├── powerbi/
+│   ├── UK_Energy_Dashboard.pbix
+│   └── screenshots/            # Dashboard exports for portfolio
+│
+└── docs/
+    ├── methodology.md          # Modelling approach and assumptions
+    └── results_summary.md      # Key findings and insights
 
-The project combines SQL data modelling, Python time-series forecasting, and Power BI visual analytics in a production-style workflow.
+🔧 Technical Stack
+Data Warehousing
 
-Key Questions This Project Answers
+PostgreSQL – Star schema design with fact tables (demand, prices) and dimension tables (time, weather)
+SQL – Complex transformations, window functions, aggregations
 
-How does UK electricity demand vary by season, temperature, and calendar effects?
+Forecasting & Machine Learning
 
-How accurately can short- and medium-term demand be forecast using historical patterns and weather features?
+Python 3.10+ – Core language
+Pandas & NumPy – Data manipulation and feature engineering
+Statsmodels – ARIMA, seasonal decomposition
+Prophet – Time-series forecasting with holidays and seasonality
+XGBoost – Gradient boosting regression with weather features
 
-How volatile are wholesale electricity prices, and how do they respond to demand spikes and weather shocks?
+Visualization & Reporting
 
-What scenarios (e.g. cold spells, heatwaves, demand surges) pose the highest system stress and price risk?
+Power BI Desktop – Interactive dashboards with DAX measures
+What-If Parameters – Scenario analysis and stress testing
+Matplotlib & Seaborn – Exploratory visualizations
 
-Data Sources
 
-National Grid / NESO – Daily historical electricity demand
+📈 Modelling Approach
+1. Demand Forecasting Pipeline
+Model TypeTechniqueUse CaseBaselineSeasonal naive, rolling averagesBenchmark performanceStatisticalARIMA, ProphetCapturing trend and seasonalityMachine LearningXGBoost with lag features + weatherHighest accuracy for short-term forecasts
+Key Features:
 
-Elexon BMRS – UK wholesale electricity market price series
+Rolling window validation (walk-forward)
+Temperature, humidity, wind speed integration
+Calendar effects (holidays, weekends, daylight hours)
+Lag features (1, 7, 14, 28 days)
 
-Met Office – Daily weather observations (temperature, rainfall)
+2. Price Analysis & Volatility
 
-UK Public Holidays & Calendar Data – Seasonality and demand drivers
+Decomposition: Trend, seasonal, and residual components
+Demand-Price Elasticity: Correlation analysis and regression modelling
+Confidence Intervals: Quantile forecasting for risk assessment
 
-All data is processed and stored in a structured PostgreSQL star schema to enable scalable analysis and modelling.
+3. Scenario & Stress Testing
 
-Technical Stack
+Cold Spell Scenario: Temperature 5-10°C below seasonal average
+Heatwave Scenario: Temperature 5-10°C above average
+Demand Surge: 10-20% increase in baseline load
+Output Metrics: Peak load impact, price spike risk, capacity margins
 
-PostgreSQL
-Star schema data warehouse (fact tables for demand and prices, dimension tables for time and weather)
 
-Python (Pandas, NumPy, Statsmodels, Prophet / XGBoost)
-Data cleaning, feature engineering, time-series forecasting, model evaluation
+📊 Power BI Dashboard
+The final deliverable includes an executive dashboard with three core views:
+1. Market Overview
 
-Power BI (DAX, What-If Parameters, Forecast Visuals)
-Executive dashboards, scenario analysis, capacity and price risk visualisation
+Historical demand and price trends
+Volatility indicators (rolling standard deviation)
+Seasonality patterns and year-over-year comparisons
 
-GitHub
-Version control, documentation, and portfolio presentation
+2. Forecasting & Accuracy
 
-Project Architecture
-/data_raw        -> Original datasets (demand, price, weather)
-/data_processed -> Cleaned & feature-engineered tables
-/sql             -> Star schema, views, transformations
-/src             -> Python forecasting and evaluation scripts
-/notebooks       -> EDA and modelling experiments
-/powerbi         -> Power BI dashboard files and screenshots
-/docs            -> Data dictionary, assumptions, methodology
+7-day and 30-day demand forecasts
+Forecast vs actual comparison with confidence bands
+Model performance metrics (MAE, MAPE, RMSE)
 
-Modelling Approach
-Demand Forecasting
+3. Scenario Planning
 
-Baseline: seasonal naive / rolling averages
-
-Statistical: ARIMA / Prophet
-
-Machine learning: XGBoost regression with weather and lag features
-
-Price Analysis
-
-Trend and volatility decomposition
-
-Demand-price sensitivity
-
-Forecasting with confidence intervals
-
-Stress testing under demand and temperature shocks
-
-Scenario & What-If Analysis
-
-Temperature deviation scenarios (cold spells / heatwaves)
-
-Demand surge scenarios
-
-Impact on peak load, price levels, and volatility
-
-Dashboard Outputs
-
-The final Power BI report will include:
-
-Market Overview
-
-Actual demand and price trends
-
-Volatility and seasonality
-
-Forecasting & Accuracy
-
-Forecast vs actual
-
-Error metrics (MAE, MAPE)
-
-Confidence bands
-
-Scenario & Stress Testing
-
-What-if sliders for temperature and demand shocks
-
-Impact on peak demand and price risk
-
-Planning and capacity stress indicators
-
-Learning Objectives
-
-This project demonstrates:
-
-Advanced SQL data modelling for time-series analytics
-
-End-to-end forecasting pipelines in Python
-
-Business-focused scenario analysis
-
-Executive-level dashboard design
-
-Energy market and infrastructure domain knowledge
+What-If Sliders: Temperature deviation, demand shock magnitude
+Impact Analysis: Peak load, price risk, system stress indicators
+Risk Heatmaps: Probability x impact matrices
