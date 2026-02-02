@@ -47,7 +47,7 @@ By integrating historical demand data, wholesale power prices, and weather obser
 |--------|-------|
 | **Best Demand Forecast Accuracy (MAPE)** | 0.907% |
 | **Models Developed** | 7 (Baseline, SARIMA, ML approaches) |
-| **Data Points Analyzed** | 10,000+ daily observations |
+| **Data Points Analyzed** | 5+ years of daily observations |
 | **Dashboard Pages** | 4 comprehensive views |
 | **Datasets Integrated** | 8 optimized tables |
 
