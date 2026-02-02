@@ -121,10 +121,10 @@ uk-energy-forecasting/
 
 | Source | Data Type | Coverage | Purpose |
 |--------|-----------|----------|---------|
-| **National Grid ESO / NESO** | Daily electricity demand (MW) | 2015-2024 | Historical demand patterns, seasonality analysis |
-| **Elexon BMRS** | Wholesale electricity prices (£/MWh) | 2015-2024 | Price volatility, demand-price relationships |
-| **Met Office** | Temperature, rainfall, wind speed | 2015-2024 | Weather feature engineering, demand drivers |
-| **UK Calendar Data** | Public holidays, working days | 2015-2024 | Calendar effect adjustments |
+| **National Grid ESO / NESO** | Daily electricity demand (MW) | 2020-2024 | Historical demand patterns, seasonality analysis |
+| **Elexon BMRS** | Wholesale electricity prices (£/MWh) | 2020-2024 | Price volatility, demand-price relationships |
+| **Met Office** | Temperature, rainfall, wind speed | 2020-2024 | Weather feature engineering, demand drivers |
+| **UK Calendar Data** | Public holidays, working days | 2020-2024 | Calendar effect adjustments |
 
 #### Data Pipeline Architecture
 
