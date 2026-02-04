@@ -226,7 +226,7 @@ I developed **7 different forecasting models** across three categories:
 ## 🌡️ Scenario Analysis – Visual Results
 
 ### Peak Demand Shift
-![Peak_Deamand_Shift](screenshots/peak_demand_shift.png)
+![Peak Demand Shift](screenshots/peak_demand_shift.png)
 
 ### Demand Growth & Capacity Stress
 ![Demand Growth](screenshots/scenario_demand_growth.png)
