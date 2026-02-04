@@ -165,6 +165,7 @@ uk-energy-forecasting/
 ##### Demand Patterns & Seasonality
 
 ![Demand Trends](screenshots/eda_demand_trends.png)
+![Demand Trends](screenshots/eda_demand_distribution.png)
 
 **Key Findings:**
 - Strong weekly seasonality (weekday vs weekend patterns)
