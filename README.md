@@ -221,6 +221,18 @@ I developed **7 different forecasting models** across three categories:
 
 ![Model Comparison](screenshots/model_performance_comparison.png)
 
+---
+
+## 🌡️ Scenario Analysis – Visual Results
+
+### Peak Demand Shift
+![Peak_Deamand_Shift](screenshots/peak_demand_shift.png)
+
+### Demand Growth & Capacity Stress
+![Demand Growth](screenshots/scenario_demand_growth.png)
+
+---
+
 #### 2.3 Code Sample: SARIMA Implementation
 
 ```python
