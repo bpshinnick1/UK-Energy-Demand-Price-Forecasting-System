@@ -2,10 +2,10 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Power BI](https://img.shields.io/badge/Power%20BI-Dashboard-yellow.svg)](https://powerbi.microsoft.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14+-blue.svg)](https://www.postgresql.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-Data%20Pipeline-purple.svg)](https://pandas.pydata.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-An end-to-end analytics and forecasting system for the UK electricity market, combining SQL data warehousing, Python machine learning, and Power BI dashboards to support strategic planning and risk assessment.
+An end-to-end analytics and forecasting system for the UK electricity market, combining Python data processing, machine learning forecasting, and Power BI dashboards to support strategic planning and risk assessment.
 
 ![Project Banner](screenshots/banner.png)
 
@@ -17,7 +17,7 @@ An end-to-end analytics and forecasting system for the UK electricity market, co
 - [Key Business Questions](#-key-business-questions)
 - [Technical Architecture](#-technical-architecture)
 - [Project Phases](#-project-phases)
-  - [Phase 1: Data Collection & Warehousing](#phase-1-data-collection--warehousing)
+  - [Phase 1: Data Collection & Processing](#phase-1-data-collection--processing)
   - [Phase 2: Exploratory Analysis & Modeling](#phase-2-exploratory-analysis--modeling)
   - [Phase 3: Power BI Dashboard Development](#phase-3-power-bi-dashboard-development)
 - [Model Performance](#-model-performance)
@@ -34,7 +34,7 @@ An end-to-end analytics and forecasting system for the UK electricity market, co
 
 This project replicates the analytical workflows used by energy market analysts, grid operators, and infrastructure investors to forecast electricity demand, predict wholesale price movements, and stress-test system capacity under various scenarios.
 
-By integrating historical demand data, wholesale power prices, and weather observations into a structured data warehouse, this system enables:
+By integrating historical demand data, wholesale power prices, and weather observations into a structured analytical pipeline, this system enables:
 
 - ✅ **Short and medium-term demand forecasting** with quantified uncertainty
 - ✅ **Price volatility analysis** and demand-price sensitivity modeling
@@ -78,13 +78,8 @@ uk-energy-forecasting/
 │   │   └── forecast_results/         # Model outputs
 │   └── data_dictionary.md            # Schema documentation
 │
-├── sql/
-│   ├── schema.sql                    # Star schema definition
-│   ├── transformations/              # ETL and feature engineering
-│   └── views/                        # Analytical views
-│
 ├── src/
-│   ├── data_pipeline.py              # Data ingestion and cleaning
+│   ├── data_pipeline.py              # Data ingestion, cleaning, and validation
 │   ├── feature_engineering.py        # Time-series features, weather integration
 │   ├── forecasting/
 │   │   ├── demand_models.py          # ARIMA, Prophet, XGBoost implementations
@@ -113,7 +108,7 @@ uk-energy-forecasting/
 
 ## 🚀 Project Phases
 
-### Phase 1: Data Collection & Warehousing
+### Phase 1: Data Collection & Processing
 
 **Objective:** Build a robust data foundation for forecasting and analytics
 
@@ -131,28 +126,25 @@ uk-energy-forecasting/
 ![Data Pipeline](screenshots/data_pipeline.png)
 
 ```python
-# Key data processing steps
-1. Data extraction from multiple sources
+# Key data processing steps (all handled in Python with pandas)
+1. Data extraction from multiple sources (CSV/API)
 2. Quality validation (missing values, outliers, duplicates)
 3. Timestamp alignment and resampling
 4. Feature engineering (lags, rolling statistics, weather integration)
-5. PostgreSQL star schema loading
-6. Export to Power BI-ready formats
+5. Export to structured, Power BI-ready CSV files
 ```
 
-#### Star Schema Design
+#### Data Model Design
 
-![Star Schema](screenshots/star_schema.png)
+Data was cleaned, transformed, and structured entirely in Python using pandas, then exported as optimised CSV files for Power BI. The resulting data model follows a star-schema-style layout within Power BI:
 
-**Fact Tables:**
-- `fact_demand` - Daily electricity demand with weather features
-- `fact_prices` - Wholesale price observations
-- `fact_forecasts` - Model predictions and confidence intervals
+**Fact Tables (CSV exports):**
+- `df_smx_demand` - Daily electricity demand with weather features
+- `df_smx_price_clean` - Wholesale price observations
+- `forecast_*` files - Model predictions and confidence intervals
 
-**Dimension Tables:**
-- `dim_time` - Calendar hierarchy (year, quarter, month, week, day)
-- `dim_weather` - Weather conditions and classifications
-- `dim_model` - Forecasting model metadata
+**Dimension Tables (CSV exports):**
+- `calendar_dim` - Calendar hierarchy (year, quarter, month, week, day)
 
 ---
 
@@ -759,13 +751,12 @@ export_for_powerbi(df, forecast_results)
 
 ## 🔧 Technical Stack
 
-### Data Warehousing
-- **PostgreSQL** – Star schema design with fact tables (demand, prices) and dimension tables (time, weather)
-- **SQL** – Complex transformations, window functions, aggregations
+### Data Processing & Pipeline
+- **Python 3.10+** – Core language for all data processing
+- **Pandas & NumPy** – Data cleaning, transformation, and feature engineering
+- **VS Code** – Development environment
 
 ### Forecasting & Machine Learning
-- **Python 3.10+** – Core language
-- **Pandas & NumPy** – Data manipulation and feature engineering
 - **Statsmodels** – SARIMA, seasonal decomposition, stationarity tests
 - **Prophet** – Time-series forecasting with holidays and seasonality
 - **Scikit-learn** – Model evaluation, preprocessing, cross-validation
@@ -784,7 +775,6 @@ export_for_powerbi(df, forecast_results)
 
 ```bash
 Python 3.10+
-PostgreSQL 14+
 Power BI Desktop
 Git
 ```
@@ -806,20 +796,14 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. **Configure database**
-
-```bash
-psql -U postgres -f sql/schema.sql
-```
-
-4. **Run data pipeline**
+3. **Run data pipeline**
 
 ```bash
 python src/data_pipeline.py
 python src/feature_engineering.py
 ```
 
-5. **Train forecasting models**
+4. **Train forecasting models**
 
 ```bash
 # Baseline models
@@ -832,7 +816,7 @@ python src/forecasting/demand_models.py
 python src/forecasting/price_models.py
 ```
 
-6. **Open Power BI dashboard**
+5. **Open Power BI dashboard**
 
 ```
 Open powerbi/UK_Energy_Dashboard.pbix in Power BI Desktop
@@ -843,10 +827,10 @@ Open powerbi/UK_Energy_Dashboard.pbix in Power BI Desktop
 ## 📚 Key Learnings & Skills Demonstrated
 
 ### Data Engineering
-- ✅ Star schema design for time-series analytics
-- ✅ ETL pipelines with data quality validation
-- ✅ Handling missing values, outliers, and duplicates in energy data
+- ✅ End-to-end data pipeline in Python (pandas)
+- ✅ Data quality validation (missing values, outliers, duplicates)
 - ✅ Multi-source data integration (weather, prices, demand)
+- ✅ Structured CSV exports optimised for Power BI ingestion
 
 ### Forecasting & Statistics
 - ✅ Time-series decomposition and stationarity testing
@@ -877,8 +861,7 @@ Open powerbi/UK_Energy_Dashboard.pbix in Power BI Desktop
 
 ## 📌 Project Status
 
-- ✅ Data collection and cleaning
-- ✅ Star schema implementation  
+- ✅ Data collection and cleaning (Python/pandas)
 - ✅ Exploratory data analysis
 - ✅ Baseline forecasting models
 - ✅ Advanced ML model development
@@ -894,7 +877,7 @@ Open powerbi/UK_Energy_Dashboard.pbix in Power BI Desktop
 **Ben** | [LinkedIn](#) | [Portfolio](#) | [Email](#)
 
 This project was developed as part of my data analytics portfolio to demonstrate end-to-end capabilities in:
-- Data warehousing and ETL
+- Python data processing and pipeline development
 - Statistical and machine learning forecasting
 - Business intelligence and dashboard design
 - Domain expertise in energy markets
