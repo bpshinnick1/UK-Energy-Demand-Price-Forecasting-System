@@ -123,8 +123,6 @@ uk-energy-forecasting/
 
 #### Data Pipeline Architecture
 
-![Data Pipeline](screenshots/data_pipeline.png)
-
 ```python
 # Key data processing steps (all handled in Python with pandas)
 1. Data extraction from multiple sources (CSV/API)
